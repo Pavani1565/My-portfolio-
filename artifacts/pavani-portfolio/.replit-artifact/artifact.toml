@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Pavani Personal Portfolio"
+description = "A responsive animated personal portfolio for Yadavareddy Pavani, showcasing her computer science journey, skills, education, experience, projects, and contact options."
+version = "1.0.0"
+id = "artifacts/pavani-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23020
+
+[services.development]
+run = "pnpm --filter @workspace/pavani-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/pavani-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/pavani-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23020"
+BASE_PATH = "/"
